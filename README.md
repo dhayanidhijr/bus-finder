@@ -17,6 +17,11 @@ Post installation, to start application
 1. npm install
 2. npm start
 
+To run test
+---------------
+### `npm test`
+
+
 ## Available Scripts
 
 In the project directory, you can run:
