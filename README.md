@@ -1,5 +1,5 @@
 
-## NOTE: This is a node and react project
+## NOTE: This is a node with react project
 
 Dependency required
 -------------------------
@@ -9,13 +9,13 @@ Node version >= v13.6.0
 To Install Node using nvm
 ----------------------------------
 Note: Full documentation to install node using NVM - https://github.com/nvm-sh/nvm
-1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-2. nvm install node
+### `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash`
+### `nvm install node`
 
 Post installation, to start application
 ---------------------------------------------
-1. npm install
-2. npm start
+### `npm install`
+### `npm start`
 
 To run test
 ---------------
