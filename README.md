@@ -1,4 +1,22 @@
 
+## NOTE: This is a node and react project
+
+Dependency required
+-------------------------
+
+Node version >= v13.6.0
+
+To Install Node using nvm
+----------------------------------
+Note: Full documentation to install node using NVM - https://github.com/nvm-sh/nvm
+1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+2. nvm install node
+
+Post installation to start the application
+---------------------------------------------
+1. npm install
+2. npm start
+
 ## Available Scripts
 
 In the project directory, you can run:
