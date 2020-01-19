@@ -9,7 +9,9 @@ Node version >= v13.6.0
 To Install Node using nvm
 ----------------------------------
 Note: Full documentation to install node using NVM - https://github.com/nvm-sh/nvm
+
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash`
+
 ### `nvm install node`
 
 Post installation, to start application
