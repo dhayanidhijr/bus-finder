@@ -12,7 +12,7 @@ Note: Full documentation to install node using NVM - https://github.com/nvm-sh/n
 1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 2. nvm install node
 
-Post installation, to start the application
+Post installation, to start application
 ---------------------------------------------
 1. npm install
 2. npm start
