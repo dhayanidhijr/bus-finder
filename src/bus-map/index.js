@@ -137,12 +137,10 @@ class BusMap extends Component {
       });
 
     marker.addListener('mouseover', function() {
-        marker.setAnimation(maps.Animation.BOUNCE);
         busInfoWidget.open(map, marker);
     });
 
     marker.addListener('mouseout', function() {
-        marker.setAnimation(null);
         (route === undefined) && busInfoWidget.close(map, marker);
     });            
 
