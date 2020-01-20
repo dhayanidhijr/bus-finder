@@ -9,6 +9,7 @@ class BusMap extends Component {
   static defaultProps = {
     center: ATLANTA_CENTER_GEO_LOCATION,
     zoom: 12,
+    inputRouteValue: "",
     BusInfo : {}
   };
 
@@ -19,6 +20,8 @@ class BusMap extends Component {
     this.googleMap = {};
     this.renderAllBusInProvidedRoute = 
       this.renderAllBusInProvidedRoute.bind(this);
+    this.onInputRouteChanged = this.onInputRouteChanged.bind(this);
+    this.onViewRoute = this.onViewRoute.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +54,29 @@ class BusMap extends Component {
       this.setState({BusInfo: {Locations: data},
         maps, route}, 
         () => {this.drawMarkerAndInfo(this.state)});
+    });
+  }
+
+  onInputRouteChanged(event) {
+    this.setState({inputRouteValue: event.target.value, isRouteFound: undefined})
+  }
+
+  onViewRoute() {
+    const {
+      BusInfo,
+      inputRouteValue
+    } = this.state,
+    isRouteFound = (BusInfo !== null)
+      && (BusInfo.Locations !== undefined)
+      && (BusInfo.Locations.reduce((routeFound, location) => {
+        return routeFound || ((!routeFound)
+          && (location.ROUTE === inputRouteValue))
+      }, false));
+
+    this.setState({
+      isRouteFound
+    }, () => {
+      isRouteFound && this.renderAllBusInProvidedRoute({...this.state, route: inputRouteValue});
     });
   }
 
@@ -138,12 +164,29 @@ class BusMap extends Component {
     const {
       center, 
       zoom
-    } = this.props;
+    } = this.props,
+    {
+      inputRouteValue,
+      isRouteFound
+    } = this.state;
+
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
-          <button onClick={() => this.renderAllBusInProvidedRoute({...this.state, route: undefined})}>
-            Show All Bus Location
-          </button>
+        <div style={{ height: '90vh', width: '100%' }}>
+          <div className="App-header">
+            <br/>
+            <button onClick={() => this.renderAllBusInProvidedRoute({...this.state, route: undefined})}>
+              Show All Bus Location
+            </button>&nbsp;|&nbsp;
+            <label>Go to Route:</label>&nbsp;
+            <input type = "text" onChange = {this.onInputRouteChanged} value = {inputRouteValue} />&nbsp;
+            <button onClick={this.onViewRoute}>Go</button>
+            <br/><br/>
+            {isRouteFound !== undefined && !isRouteFound &&
+              <font color = "red">
+                *** {inputRouteValue} Route not found ***
+              </font>
+            }
+          </div>
           <GoogleMapReact
             bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
             defaultCenter={center}
