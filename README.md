@@ -24,6 +24,24 @@ To run test
 ### `npm test`
 
 
+To Refer Output 2
+----------------------
+Use
+### `npm start`
+Navigate to http://localhost:3000 in Google Chrome
+
+To Refer Output 1
+----------------------
+Note: These steps are in align with Google Chrome browser.
+
+Use
+### `npm start`
+Note: These steps are in align with Google Chrome browser.
+1. Navigate to http://localhost:3000 in Google Chrome
+2. Open Chrome debug window using F12 and select console tab
+3. To refresh the console ouput refresh the application using F5
+
+
 ## Available Scripts
 
 In the project directory, you can run:
