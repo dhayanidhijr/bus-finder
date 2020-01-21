@@ -51,16 +51,20 @@ class BusMap extends Component {
     this.setState({map, maps, route});
     maps.renderAllBusInProvidedRoute = this.renderAllBusInProvidedRoute;
     BusMapLib.getBusLocations(route).then((data) => {
-      const busRouteMapStructure = data.reduce((validationMap, location) => {
-        validationMap[location.ROUTE] = (validationMap[location.ROUTE] === undefined)
-          ? []
-          : validationMap[location.ROUTE];
-        validationMap[location.ROUTE].push(location);
-        return validationMap;
-      }, {});
+      const cacheBusRouteMap = route === undefined,
+        busRouteMapStructure = cacheBusRouteMap
+          ? data.reduce((validationMap, location) => {
+              validationMap[location.ROUTE] = (validationMap[location.ROUTE] === undefined)
+                ? []
+                : validationMap[location.ROUTE];
+              validationMap[location.ROUTE].push(location);
+              return validationMap;
+            }, {})
+          : this.state.busRouteMapStructure;
+
       this.setState({BusInfo: {Locations: data},
         maps, route, busRouteMapStructure},
-        () => {this.drawMarkerAndInfo(this.state)});
+      () => {this.drawMarkerAndInfo(this.state)});
     });
   }
 
