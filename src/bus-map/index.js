@@ -51,10 +51,26 @@ class BusMap extends Component {
     this.setState({map, maps, route});
     maps.renderAllBusInProvidedRoute = this.renderAllBusInProvidedRoute;
     BusMapLib.getBusLocations(route).then((data) => {
+      const busRouteMapStructure = data.reduce((validationMap, location) => {
+        validationMap[location.ROUTE] = (validationMap[location.ROUTE] === undefined)
+          ? []
+          : validationMap[location.ROUTE];
+        validationMap[location.ROUTE].push(location);
+        return validationMap;
+      }, {});
       this.setState({BusInfo: {Locations: data},
-        maps, route}, 
+        maps, route, busRouteMapStructure},
         () => {this.drawMarkerAndInfo(this.state)});
     });
+  }
+
+  renderAllBusInProvidedRouteUsingCacheMap({ map, maps, route, data}) {
+    this.clearGoogleMap(maps);
+    this.setState({map, maps, route, BusInfo: {Locations: data}},
+      () => {
+        this.drawMarkerAndInfo(this.state);
+      }
+    );
   }
 
   onInputRouteChanged(event) {
@@ -63,20 +79,31 @@ class BusMap extends Component {
 
   onViewRoute() {
     const {
+      /* Non map to find route existence implementation
       BusInfo,
+      */
+      busRouteMapStructure,
       inputRouteValue
     } = this.state,
-    isRouteFound = (BusInfo !== null)
-      && (BusInfo.Locations !== undefined)
-      && (BusInfo.Locations.reduce((routeFound, location) => {
-        return routeFound || ((!routeFound)
-          && (location.ROUTE === inputRouteValue))
-      }, false));
+    /* Non map to find route existence implementation
+      isRouteFound = (BusInfo !== null)
+        && (BusInfo.Locations !== undefined)
+        && (BusInfo.Locations.reduce((routeFound, location) => {
+          return routeFound || ((!routeFound)
+            && (location.ROUTE === inputRouteValue))
+        }, false)),
+    */
+   isRouteFound =
+      (busRouteMapStructure[inputRouteValue] !== undefined),
+    busLocationData = busRouteMapStructure[inputRouteValue];
 
     this.setState({
       isRouteFound
     }, () => {
-      isRouteFound && this.renderAllBusInProvidedRoute({...this.state, route: inputRouteValue});
+      isRouteFound &&
+        this.renderAllBusInProvidedRouteUsingCacheMap(
+          {...this.state, route: inputRouteValue, data: busLocationData}
+        );
     });
   }
 
