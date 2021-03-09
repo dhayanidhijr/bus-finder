@@ -10,6 +10,10 @@ To Install Node using nvm
 ----------------------------------
 Note: Full documentation to install node using NVM - https://github.com/nvm-sh/nvm
 
+To Install Node in Windows
+----------------------------------
+Note: follow this url to get documentation to install node in windows https://nodejs.org/en/
+
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash`
 
 ### `nvm install node`
